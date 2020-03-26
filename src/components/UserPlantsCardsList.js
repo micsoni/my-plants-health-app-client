@@ -6,7 +6,7 @@ export default function UserPlantsCardsList(props) {
     return (
       <div className="col-md-6 col-12" key={plant.id}>
         <div className="card shadow-sm">
-          {/* <img src={plant.pictureUrl} className="card-img-top" alt=" " /> */}
+          <img src={plant.image} className="card-img-top" alt=""/>
           <div className="card-body">
             <h5 className="card-title">{plant.name}</h5>
             <Link to={`/plants/${plant.id}`} className="btn">

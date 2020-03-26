@@ -1,9 +1,10 @@
 import React from 'react'
+import CreatePlantFormContainer from "./CreatePlantFormContainer"
 
 export default function Homepage() {
   return (
     <div>
-     <p className="text-center">Homepage</p> 
+     <CreatePlantFormContainer />
     </div>
   )
 }
