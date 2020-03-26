@@ -1,0 +1,12 @@
+.btn {
+  background-color:#123859;
+  font-size: 18px;
+  font-family: 'Libre Franklin', sans-serif;
+  margin-bottom: 20px;
+}
+
+.card {
+  padding:20px 0px;
+  margin: 20px;
+  font-size: 18px;
+}

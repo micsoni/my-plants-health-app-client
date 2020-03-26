@@ -21,7 +21,7 @@ export default function AuthForm(props) {
   };
 
   return (
-    <div className="card text-center">
+    <div className="text-center">
       <form onSubmit={props.onSubmit}>
         {typeOfForm()}
         <div className="form-group col-12">
