@@ -23,3 +23,26 @@ export function signup(email, password, username) {
     }
   };
 }
+
+//login action
+function makeLogin(loginData) {
+  return {
+    type: "LOGGED_IN",
+    payload: loginData
+  };
+}
+
+export function login(email, password) {
+  return async function(dispatch) {
+    try {
+      const response = await request
+        .post(`${baseUrl}/login`)
+        .send({ email, password });
+
+      const action = makeLogin(response.body);
+      dispatch(action);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

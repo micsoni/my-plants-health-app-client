@@ -8,6 +8,12 @@ export default function(state = initialState, action = {}) {
         loginInfo: action.payload
       };
     }
+    case "LOGGED_IN": {
+      return {
+        ...state,
+        loginInfo: action.payload
+      };
+    }
     default:
       return state;
   }
