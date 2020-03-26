@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { signup } from "../store/actions/user.js";
 import AuthForm from "./AuthForm";
+import "../style/AuthForm.css"
 
-function SignUpFormContainer(props) {
+function SignUpFormPage(props) {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -13,7 +14,7 @@ function SignUpFormContainer(props) {
 
   const onSubmit = event => {
     event.preventDefault();
-    
+
     props.signup(user.email, user.password, user.username);
   };
 
@@ -26,19 +27,20 @@ function SignUpFormContainer(props) {
 
   if (!props.userLoggedIn.jwt) {
     return (
-      <div>
-        <p>Fill in your data to join us</p>
+      <div className="form ">
+        <div className="card shadow-sm">
+        <p className="text-center">Fill in your data to join us</p>
         <p>{props.header}</p>
         <AuthForm
           onSubmit={onSubmit}
           onChange={onChange}
-          messsage={props.message}
           values={user}
           type={"Sign Up"}
         />
-        <p>
+        <p className="text-center">
           Already a member? <Link to="/login">Login</Link>
         </p>
+        </div>
       </div>
     );
   }
@@ -49,4 +51,4 @@ function mapStateToProps(state) {
   return { userLoggedIn: state.user.loginInfo };
 }
 
-export default connect(mapStateToProps, { signup })(SignUpFormContainer);
+export default connect(mapStateToProps, { signup })(SignUpFormPage);
