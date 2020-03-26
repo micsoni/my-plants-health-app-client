@@ -42,7 +42,7 @@ export default function AuthForm(props) {
             value={props.values.password}
           />
         </div>
-        <button type="submit" className="btn btn-info">
+        <button type="submit" className="btn">
           {props.type}
         </button>
       </form>
