@@ -1,0 +1,12 @@
+.navbar {
+  background-color: #123859;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 18px;
+}
+
+.nav-link {
+  color: #f4f4f4;
+}
+.dropdown-menu {
+  background-color:#419FD9;
+}
