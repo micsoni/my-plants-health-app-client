@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getUserPlants, logout } from "../store/actions/user";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import UserPlantsCardsList from "./UserPlantsCardsList";
+import CreatePlantFormContainer from "./CreatePlantFormContainer"
+import "../style/ProfilePage.css";
 
 function ProfilePage(props) {
+
+  const [togglePlantForm, setToggleForm] = useState(false)
+
+  const toggleForm = () => {
+    setToggleForm(!togglePlantForm)
+  };
+
   useEffect(() => {
     if (props.userLoggedIn.jwt) {
       props.getUserPlants(props.userLoggedIn.id);
@@ -30,16 +39,25 @@ function ProfilePage(props) {
     return <p>Loading...</p>;
   }
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-sm-4">
-          <p>Welcome {props.userLoggedIn.name}</p>
+          <p className="welcome">Welcome {props.userLoggedIn.name}</p>
           <button className="btn" onClick={onLogout}>
             Logout
           </button>
+
+          <button className="btn" onClick={toggleForm}> New plant</button>
+          <button className="btn">New alarm</button>
+          {togglePlantForm && <CreatePlantFormContainer />}
         </div>
         <div className="col-sm-8">
-          <div className="card container">{checkforPlants()}</div>
+          <div className="card container">
+            <Link to={"/plants/"} className="btn">
+              See all my plants
+            </Link>
+            {checkforPlants()}
+          </div>
         </div>
       </div>
     </div>
