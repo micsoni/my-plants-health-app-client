@@ -14,7 +14,10 @@ export function createPlant(data) {
   return async function(dispatch, getState) {
     const state = getState();
     const { user } = state;
-console.log(data)
+    if (data.image === "") {
+      data = { name: data.name };
+    }
+    console.log(data);
     try {
       const response = await request
         .post(`${baseUrl}/plant`)
@@ -24,7 +27,7 @@ console.log(data)
       const action = newPlant(response.body);
       dispatch(action);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }

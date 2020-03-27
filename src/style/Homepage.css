@@ -1,0 +1,10 @@
+.img-fluid {
+  max-width: 80%;
+  margin:auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .img-fluid {
+    max-width: 100%;
+  }
+}
