@@ -39,7 +39,6 @@ function CreatePlantFormContainer(props) {
           values={plant}
           checkUploadResults={checkUploadResults}
         />
-        ;
       </div>
     </div>
   );
