@@ -1,13 +1,12 @@
 import React from "react";
 
 export default function AuthForm(props) {
-  
   const typeOfForm = () => {
     if (props.type === "Sign Up") {
       return (
         <div className="form-group col-12">
           <label className="col-sm-2">Name</label>
-          <input 
+          <input
             type="text"
             name="username"
             onChange={props.onChange}
@@ -26,7 +25,7 @@ export default function AuthForm(props) {
         {typeOfForm()}
         <div className="form-group col-12">
           <label className="col-sm-2">Email</label>
-          <input 
+          <input
             type="email"
             name="email"
             onChange={props.onChange}
@@ -35,14 +34,14 @@ export default function AuthForm(props) {
         </div>
         <div className="form-group col-12">
           <label className="col-sm-2">Password</label>
-          <input 
+          <input
             type="text"
             name="password"
             onChange={props.onChange}
             value={props.values.password}
           />
         </div>
-        <button type="submit" className="btn btn-info">
+        <button type="submit" className="btn">
           {props.type}
         </button>
       </form>

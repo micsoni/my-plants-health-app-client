@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { login } from "../store/actions/user.js";
 import AuthForm from "./AuthForm";
-import "../style/AuthForm.css";
+import "../style/Forms.css";
 
 function LoginFormPage(props) {
   const [user, setUser] = useState({
@@ -28,7 +28,6 @@ function LoginFormPage(props) {
       <div className="form ">
         <div className="card shadow-sm">
           <p className="text-center">Log in to access your personal page</p>
-          <p>{props.header}</p>
           <AuthForm
             onSubmit={onSubmit}
             onChange={onChange}

@@ -5,13 +5,18 @@ import store from "./store/index";
 import SignupFormPage from "./components/SignUpFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import Navbar from "./components/Navbar";
+import Homepage from "./components/Homepage";
+import ProfilePage from "./components/ProfilePage"
+
 function App() {
   return (
     <Provider store={store}>
       <Navbar />
       <Switch>
+        <Route exact path="/" component={Homepage} />
         <Route path="/signup" component={SignupFormPage} />
         <Route path="/login" component={LoginFormPage} />
+        <Route path="/profile" component={ProfilePage}/>
       </Switch>
     </Provider>
   );
