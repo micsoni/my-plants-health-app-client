@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getUserPlants, logout } from "../store/actions/user";
+import { getUserPlantsSample } from "../store/actions/plants";
+import { logout } from "../store/actions/user";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 import UserPlantsCardsList from "./UserPlantsCardsList";
@@ -16,7 +17,7 @@ function ProfilePage(props) {
 
   useEffect(() => {
     if (props.userLoggedIn.jwt) {
-      props.getUserPlants(props.userLoggedIn.id);
+      props.getUserPlantsSample(props.userLoggedIn.id);
     }
   }, []);
 
@@ -29,7 +30,7 @@ function ProfilePage(props) {
     if (props.plants.length === 0) {
       return <p>You haven't added any plants yet</p>;
     }
-    return <UserPlantsCardsList plants={props.plants} />;
+    return <UserPlantsCardsList plants={props.plants} container={"profilePage"}/>;
   };
 
   if (!props.userLoggedIn.jwt) {
@@ -52,7 +53,7 @@ function ProfilePage(props) {
           {togglePlantForm && <CreatePlantFormContainer />}
         </div>
         <div className="col-sm-8">
-          <div className="card container">
+          <div className="bigcard card container">
             <Link to={"/plants/"} className="btn">
               See all my plants
             </Link>
@@ -67,9 +68,9 @@ function ProfilePage(props) {
 function mapStateToProps(state) {
   return {
     userLoggedIn: state.user.loginInfo,
-    plants: state.user.plants
+    plants: state.plants.sample.rows
   };
 }
-const mapDispatchToProps = { getUserPlants, logout };
+const mapDispatchToProps = { getUserPlantsSample, logout };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

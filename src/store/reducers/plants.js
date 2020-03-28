@@ -1,13 +1,17 @@
-const initialState = { all: [], current: {} };
+const initialState = { all: {}, current: {}, sample:"" };
 
 export default function(state = initialState, action = {}) {
   switch (action.type) {
-    case "NEW_PLANT": {
-      //fixxxxxxxxxxxxxx it!!
-      const updatedPlants = { ...state, all: state.all.concat(action.payload) };
+    case "LOGGED_USER_PLANTS": {
       return {
         ...state,
-        all: updatedPlants
+        all: action.payload
+      };
+    }
+    case "USER_PLANTS_SAMPLE": {
+      return {
+        ...state,
+        sample: action.payload
       };
     }
     default:

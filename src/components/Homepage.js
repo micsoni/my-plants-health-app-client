@@ -1,5 +1,4 @@
 import React from "react";
-import CreatePlantFormContainer from "./CreatePlantFormContainer";
 import "../style/Homepage.css";
 
 export default function Homepage() {

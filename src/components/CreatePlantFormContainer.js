@@ -13,7 +13,7 @@ function CreatePlantFormContainer(props) {
   const onSubmit = event => {
     event.preventDefault();
     console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image});
+    props.createPlant({name:plant.name, image:plant.image}).then() //fixxxxxxxxxxxxxxxxxxxxxx it
   };
 
   const onChange = event => {

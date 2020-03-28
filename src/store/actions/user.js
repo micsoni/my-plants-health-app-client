@@ -54,28 +54,3 @@ export function logout() {
     payload: ""
   };
 }
-
-//get Logged User Plants
-function userPlants(userPlants) {
-  return {
-    type: "LOGGED_USER_PLANTS",
-    payload: userPlants
-  };
-}
-
-export function getUserPlants() {
-  return async function(dispatch, getState) {
-    const state = getState();
-    const { user } = state;
-    try {
-      const response = await request.get(`${baseUrl}/user/current`)
-      .set("Authorization", `Bearer ${user.loginInfo.jwt}`)
-      const plants = response.body.plants;
-
-      const action = userPlants(plants);
-      dispatch(action);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-}

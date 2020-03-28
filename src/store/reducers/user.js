@@ -1,4 +1,4 @@
-const initialState = { loginInfo: "", plants: "" };
+const initialState = { loginInfo: "" };
 
 export default function(state = initialState, action = {}) {
   switch (action.type) {
@@ -18,12 +18,6 @@ export default function(state = initialState, action = {}) {
       return {
         plants: action.payload,
         loginInfo: action.payload
-      };
-    }
-    case "LOGGED_USER_PLANTS": {
-      return {
-        ...state,
-        plants: action.payload
       };
     }
     default:
