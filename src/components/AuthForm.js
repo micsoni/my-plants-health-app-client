@@ -35,7 +35,7 @@ export default function AuthForm(props) {
         <div className="form-group col-12">
           <label className="col-sm-2">Password</label>
           <input
-            type="text"
+            type="password"
             name="password"
             onChange={props.onChange}
             value={props.values.password}

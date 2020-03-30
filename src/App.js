@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar";
 import Homepage from "./components/Homepage";
 import ProfilePage from "./components/ProfilePage"
 import UserAllPlantsPage from "./components/UserAllPlantsPage"
+import PlantDetailsPage from "./components/PlantDetailsPage"
+
 function App() {
   return (
     <Provider store={store}>
@@ -17,6 +19,7 @@ function App() {
         <Route path="/signup" component={SignupFormPage} />
         <Route path="/login" component={LoginFormPage} />
         <Route path="/profile" component={ProfilePage}/>
+        <Route path="/plants/:plantId" component={PlantDetailsPage}/>
         <Route path="/plants" component={UserAllPlantsPage}/>
       </Switch>
     </Provider>

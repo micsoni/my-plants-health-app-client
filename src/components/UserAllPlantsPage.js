@@ -10,7 +10,7 @@ function UserAllPlantsPage(props) {
     if (props.userLoggedIn.jwt) {
       props.getUserPlants(props.userLoggedIn.id);
     }
-  }, []);
+  });
 
   const checkforPlants = () => {
     if (props.plants.length === 0) {
