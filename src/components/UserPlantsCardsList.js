@@ -3,18 +3,28 @@ import { Link } from "react-router-dom";
 
 export default function UserPlantsCardsList(props) {
 
-  const changeCss = () => {
-   const grid = props.container === "profilePage"? "col-lg-3 col-md-6 col-12": "col-lg-2 col-md-3 col-6"
-    return grid
-  }
-
   const displayPlants = props.plants.map(plant => {
+    const alarms = () => {
+      if (plant.alarms.length === 0) {
+        return (<div>☐ Alarms</div>)
+      }
+      return (<div>☑ Alarms</div>)
+    }
+    
+    const notes = () => {
+      if (plant.notes.length === 0) {
+        return (<div>☐ Notes</div>)
+      }
+      return (<div>☑ Notes</div>)
+    }
     return (
-      <div className={`plantCard ${changeCss()}`} key={plant.id}>
+      <div className="plantCard col-lg-2 col-md-3 col-6" key={plant.id}>
         <div className="card shadow-sm h-100">
           <img src={plant.image} className="card-img-top" alt="" />
-          <div className="card-body">
+          <div className="plantCardBody card-body">
             <h5 className="card-title">{plant.name}</h5>
+            {alarms()}
+            {notes()}
           </div>
           <Link to={`/plants/${plant.id}`} className="btn">
             See Details
@@ -23,6 +33,7 @@ export default function UserPlantsCardsList(props) {
       </div>
     );
   });
+
 
   return <div className="row">{displayPlants}</div>;
 }
