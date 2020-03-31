@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import {connect} from "react-redux"
 import PlantForm from "./PlantForm";
-import {createPlant, getUserPlants} from "../store/actions/plants"
+import {editPlant} from "../store/actions/plants"
 import "../style/Forms.css";
 
-function CreatePlantFormContainer(props) {
+function EditPlantFormContainer(props) {
   const [plant, setPlant] = useState({
-    name: "",
-    image: "",
-    description:""
+    name: props.plant.name,
+    image:  props.plant.image,
+    description: props.plant.description
   });
 
   const onSubmit = event => {
     event.preventDefault();
     console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image, description:plant.description}).then(getUserPlants(props.userLoggedIn.id))
+    props.editPlant(props.plant.id,{name:plant.name, image:plant.image, description:plant.description})
   };
 
   const onChange = event => {
@@ -33,13 +33,13 @@ function CreatePlantFormContainer(props) {
   return (
     <div className="form ">
       <div className="card shadow-sm">
-        <p className="text-center">Add a new plant </p>
+        <p className="text-center">Edit information </p>
         <PlantForm
           onSubmit={onSubmit}
           onChange={onChange}
           values={plant}
           checkUploadResults={checkUploadResults}
-          button={"Add new plant"}
+          button={"Update Plant"}
         />
       </div>
     </div>
@@ -48,8 +48,9 @@ function CreatePlantFormContainer(props) {
 
 
 function mapStateToProps(state) {
-  return { userLoggedIn: state.user.loginInfo };
+  return { userLoggedIn: state.user.loginInfo,
+  plant: state.plants.current };
 }
 
-export default connect(mapStateToProps, { createPlant, getUserPlants })(CreatePlantFormContainer);
+export default connect(mapStateToProps, { editPlant })(EditPlantFormContainer);
 

@@ -50,28 +50,102 @@ export function getUserPlants() {
   };
 }
 
-//get Logged User Plants
-function userPlantsSample(userPlants) {
+
+function currentPlant(PlantDetails) {
   return {
-    type: "USER_PLANTS_SAMPLE",
-    payload: userPlants
+    type: "CURRENT_PLANT",
+    payload: PlantDetails
   };
 }
 
-export function getUserPlantsSample() {
+export function getCurrentPlant(plantId) {
   return async function(dispatch, getState) {
     const state = getState();
     const { user } = state;
     try {
       const response = await request
-        .get(`${baseUrl}/plant?limit=4&offset=0`)
+        .get(`${baseUrl}/plant/${plantId}`)
         .set("Authorization", `Bearer ${user.loginInfo.jwt}`);
       const plants = response.body;
 
-      const action = userPlantsSample(plants);
+      const action = currentPlant(plants);
       dispatch(action);
     } catch (error) {
       console.error(error);
+    }
+  };
+}
+
+//thunk action to create alarm **it doesn't send a action to the store
+
+export function newAlarm(name, time, dayOfTheWeek) {
+  return async function(dispatch, getState) {
+    const state = getState();
+    const { user } = state;
+    const {plants} = state;
+     const alarm = {name, time, dayOfTheWeek, plantId: plants.current.id}
+    try {
+      const response = await request
+        .post(`${baseUrl}/alarm`)
+        .set("Authorization", `Bearer ${user.loginInfo.jwt}`)
+        .send(alarm);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+// action to update plant
+function updatePlant(newPlant) {
+  return {
+    type: "CHANGE_PLANT",
+    payload: newPlant
+  };
+}
+
+export function editPlant(id, update) {
+  return async function(dispatch, getState) {
+    const state = getState();
+    const { user } = state;
+    try {
+      const response = await request
+        .put(`${baseUrl}/plant/${id}`)
+        .set("Authorization", `Bearer ${user.loginInfo.jwt}`)
+        .send(update);
+
+      const action = updatePlant(response.body);
+
+      dispatch(action);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+}
+
+// action to delete plant
+function destroyPlant(plantId) {
+  return {
+    type: "PLANT_DELETE_SUCCESS",
+    payload: plantId
+  };
+}
+
+export function deletePlant(id) {
+  return async function(dispatch, getState) {
+    const state = getState();
+    const { user } = state;
+
+    try {
+      await request
+        .delete(`${baseUrl}/plant/${id}`)
+        .set("Authorization", `Bearer ${user.loginInfo.jwt}`);
+
+      const action = destroyPlant(id);
+
+      dispatch(action);
+    } catch (error) {
+      console.log(error)
     }
   };
 }

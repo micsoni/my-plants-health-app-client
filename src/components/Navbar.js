@@ -28,7 +28,7 @@ function Navbar(props) {
             Profile
           </Link>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <Link to="/plants" className="nav-link dropdown-item">
+            <Link to="/profile" className="nav-link dropdown-item">
               My plants
             </Link>
             <Link to="/alarms" className="nav-link dropdown-item">
@@ -36,10 +36,6 @@ function Navbar(props) {
             </Link>
             <Link to="/notes" className="nav-link dropdown-item">
               My notes
-            </Link>
-            <div className="dropdown-divider"></div>
-            <Link to="/profile" className="nav-link dropdown-item">
-              Dashboard
             </Link>
           </div>
         </li>

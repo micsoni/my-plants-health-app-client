@@ -24,8 +24,8 @@ export default function PlantForm(props) {
     <div className="text-center">
       <form onSubmit={props.onSubmit}>
         <div className="form-group col-12">
-          <label className="">Name </label>{" "}
-          <input
+          <label className="col-sm-2 col-form-label">Name </label>{" "}
+          <input 
             type="text"
             name="name"
             onChange={props.onChange}
@@ -33,14 +33,23 @@ export default function PlantForm(props) {
           />
         </div>
         <div className="form-group col-12">
-          <label className="">Image </label>{" "}
+          <label className="col-sm-2 col-form-label">Image </label>{" "}
           <button onClick={showWidget} className="addFile">
             ⇧ Choose a file ...
           </button>
           <div className="container-thumbnails"></div>
         </div>
+        <div className="form-group col-12">
+          <label className="col-sm-2 col-form-label">Description </label>{" "}
+          <textarea
+            type="text"
+            name="description"
+            onChange={props.onChange}
+            value={props.values.description}
+          />
+        </div>
         <button type="submit" className="btn">
-          Add new Plant
+         {props.button}
         </button>
       </form>
     </div>
