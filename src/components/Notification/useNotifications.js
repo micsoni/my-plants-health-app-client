@@ -35,7 +35,7 @@ export default function usePushNotifications() {
     getExixtingSubscription();
   }, []);
 
-  const onClickAskUserPermissionAndSubscribe = () => {
+  const onClickAskUserPermissionAndSubscribe = user => {
     setError(false);
 
     askUserPermission().then(consent => {
@@ -49,21 +49,22 @@ export default function usePushNotifications() {
 
       if (consent === "granted" && !userSubscription) {
         createNotificationSubscription()
-          .then(function(subscrition) {
-            setUserSubscription(subscrition);
-            console.log(subscrition);
+          .then(function(subscription) {
+            setUserSubscription(subscription);
+            return subscription;
           })
           .catch(err => {
             console.error("Couldn't create the notification subscription", err);
             setError(err);
           })
-          .then(function SendSubscriptionToPushServer() {
+          .then(function SendSubscriptionToPushServer(subscription) {
+            console.log(JSON.parse(JSON.stringify(subscription)));
             request
               .post(`${baseUrl}/subscription`)
-              .send(JSON.parse(JSON.stringify(userSubscription)))
+              .set("Authorization", `Bearer ${user.jwt}`)
+              .send(JSON.parse(JSON.stringify(subscription)))
               .then(function(response) {
                 setPushServerSubscriptionId(response.body.id);
-                console.log(userSubscription);
               })
               .catch(err => {
                 setError(err);
