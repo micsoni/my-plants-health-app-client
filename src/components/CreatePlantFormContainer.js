@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import {connect} from "react-redux"
 import PlantForm from "./PlantForm";
-import {createPlant} from "../store/actions/plants"
+import {createPlant, getUserPlants} from "../store/actions/plants"
 import "../style/Forms.css";
 
 function CreatePlantFormContainer(props) {
   const [plant, setPlant] = useState({
     name: "",
-    image: ""
+    image: "",
+    description:""
   });
 
   const onSubmit = event => {
     event.preventDefault();
     console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image}).then() //fixxxxxxxxxxxxxxxxxxxxxx it
+    props.createPlant({name:plant.name, image:plant.image, description:plant.description}).then(getUserPlants(props.userLoggedIn.id))
   };
 
   const onChange = event => {
@@ -38,6 +39,7 @@ function CreatePlantFormContainer(props) {
           onChange={onChange}
           values={plant}
           checkUploadResults={checkUploadResults}
+          button={"Add new plant"}
         />
       </div>
     </div>
@@ -49,5 +51,5 @@ function mapStateToProps(state) {
   return { userLoggedIn: state.user.loginInfo };
 }
 
-export default connect(mapStateToProps, { createPlant })(CreatePlantFormContainer);
+export default connect(mapStateToProps, { createPlant, getUserPlants })(CreatePlantFormContainer);
 
