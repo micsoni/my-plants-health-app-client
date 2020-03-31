@@ -7,7 +7,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import Navbar from "./components/Navbar";
 import Homepage from "./components/Homepage";
 import ProfilePage from "./components/ProfilePage"
-import UserAllPlantsPage from "./components/UserAllPlantsPage"
+import AllAlarmsPage from "./components/AllAlarmsPage"
 import PlantDetailsPage from "./components/PlantDetailsPage"
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
         <Route path="/login" component={LoginFormPage} />
         <Route path="/profile" component={ProfilePage}/>
         <Route path="/plants/:plantId" component={PlantDetailsPage}/>
-        <Route path="/plants" component={UserAllPlantsPage}/>
+        <Route path="/alarms" component={AllAlarmsPage}/>
       </Switch>
     </Provider>
   );

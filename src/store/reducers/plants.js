@@ -1,4 +1,4 @@
-const initialState = { all: {}, current: {}, sample:"" };
+const initialState = { all: {}, current: {} };
 
 export default function(state = initialState, action = {}) {
   switch (action.type) {
@@ -8,12 +8,35 @@ export default function(state = initialState, action = {}) {
         all: action.payload
       };
     }
-    case "USER_PLANTS_SAMPLE": {
+    case "CURRENT_PLANT": {
       return {
         ...state,
-        sample: action.payload
+        current: action.payload
       };
     }
+    case "CHANGE_PLANT": {
+      
+      const plantUpdated = {...state.current, name:action.payload.name,
+        image:action.payload.image,
+        description:action.payload.description}
+          return {
+            ...state,
+            current:plantUpdated
+          };
+        }
+    case "PLANT_DELETE_SUCCESS": {
+      const plantId = action.payload;
+      const allMinusDeleted = state.plant.all.rows.filter(
+        plant => plant.id !== plantId
+      );
+
+      const updatedPlants = { ...state.all, rows: allMinusDeleted };
+      return {
+        ...state,
+        all: updatedPlants
+      };
+    }
+
     default:
       return state;
   }
