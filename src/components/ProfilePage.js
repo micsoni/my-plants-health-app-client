@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getUserPlantsSample } from "../store/actions/plants";
+import { getUserPlants } from "../store/actions/plants";
 import { logout } from "../store/actions/user";
 import { connect } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import UserPlantsCardsList from "./UserPlantsCardsList";
 import CreatePlantFormContainer from "./CreatePlantFormContainer";
 import "../style/ProfilePage.css";
@@ -14,11 +14,14 @@ function ProfilePage(props) {
     setToggleForm(!togglePlantForm);
   };
 
+  const {getUserPlants} = props
+  const currentUser = props.userLoggedIn.jwt
+
   useEffect(() => {
-    if (props.userLoggedIn.jwt) {
-      props.getUserPlantsSample(props.userLoggedIn.id);
+    if (currentUser) {
+      getUserPlants(currentUser)
     }
-  });
+  }, [getUserPlants, currentUser]);
 
   const onLogout = () => {
     props.logout();
@@ -29,9 +32,7 @@ function ProfilePage(props) {
     if (props.plants.length === 0) {
       return <p>You haven't added any plants yet</p>;
     }
-    return (
-      <UserPlantsCardsList plants={props.plants} container={"profilePage"} />
-    );
+    return <UserPlantsCardsList plants={props.plants} />;
   };
 
   if (!props.userLoggedIn.jwt) {
@@ -43,27 +44,18 @@ function ProfilePage(props) {
   }
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-sm-4">
-          <p className="welcome">Welcome {props.userLoggedIn.name}</p>
-          <button className="btn" onClick={onLogout}>
-            Logout
-          </button>
-
-          <button className="btn" onClick={toggleForm}>
-            {" "}
-            New plant
-          </button>
-          {togglePlantForm && <CreatePlantFormContainer />}
-        </div>
-        <div className="col-sm-8">
-          <div className="bigcard card container">
-            <Link to={"/plants/"} className="btn">
-              See all my plants
-            </Link>
-            {checkforPlants()}
-          </div>
-        </div>
+      <p className="welcome">Welcome {props.userLoggedIn.name}</p>
+      <button className="btn" onClick={onLogout}>
+        Logout
+      </button>
+      <button className="btn" onClick={toggleForm}>
+        {" "}
+        New plant
+      </button>
+      {togglePlantForm && <CreatePlantFormContainer />}
+      <div className="bigcard card container-fluid">
+        <div className="card-header">My Plants</div>
+        {checkforPlants()}
       </div>
     </div>
   );
@@ -72,9 +64,9 @@ function ProfilePage(props) {
 function mapStateToProps(state) {
   return {
     userLoggedIn: state.user.loginInfo,
-    plants: state.plants.sample.rows
+    plants: state.plants.all.rows
   };
 }
-const mapDispatchToProps = { getUserPlantsSample, logout };
+const mapDispatchToProps = { getUserPlants, logout };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
