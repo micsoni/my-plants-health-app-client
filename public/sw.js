@@ -11,6 +11,7 @@ function receivePushNotification(event) {
     tag: tag,
     image: image,
     requireInteraction: true,
+    icon: image,
     actions: [
       {
         action: "Detail",
