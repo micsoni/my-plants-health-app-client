@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import AlarmForm from "./AlarmForm";
-import {newAlarm} from "../store/actions/plants"
-import {connect} from "react-redux"
+import { editAlarm } from "../store/actions/alarms";
+import "../style/Forms.css";
 
-function AlarmFormContainer(props) {
+function EditAlarmFormContainer(props) {
   const [alarm, setAlarm] = useState({
-    name: "",
-    hourInMinuts: ""
+    name: props.alarm.name,
+    time: props.alarm.time
   });
 
   const [dayOfTheWeek, setDayOfTheWeek] = useState({
@@ -21,10 +22,27 @@ function AlarmFormContainer(props) {
 
   const onSubmit = event => {
     event.preventDefault();
+
+    const time =
+      typeof alarm.time === "number"
+        ? alarm.time
+        : alarm.time
+            .split(":")
+            .map((string, index) => {
+              const timeInNumbers =
+                index === 0 ? parseInt(string) * 60 : parseInt(string);
+              return timeInNumbers;
+            })
+            .reduce((acc, minutes) => acc + minutes, 0);
+
     const days = Object.values(dayOfTheWeek).map((value, index) =>
       value ? index : null
     );
-    props.newAlarm(alarm.name, alarm.hourInMinuts, days);
+    props.editAlarm(props.plant.id, props.alarm.id, {
+      name: alarm.name,
+      time: time,
+      dayOfTheWeek: days
+    });
   };
 
   const onChange = event => {
@@ -32,7 +50,6 @@ function AlarmFormContainer(props) {
       ...alarm,
       [event.target.name]: event.target.value
     });
-    console.log(alarm);
   };
 
   const dayOnChange = event => {
@@ -40,28 +57,22 @@ function AlarmFormContainer(props) {
       ...dayOfTheWeek,
       [event.target.name]: event.target.checked
     });
-    console.log();
   };
 
   return (
     <div className="form ">
       <div className="card shadow-sm">
+        <p className="text-center">Edit information </p>
         <AlarmForm
           onSubmit={onSubmit}
           onChange={onChange}
           dayOnChange={dayOnChange}
           values={alarm}
+          button={"Update Alarm"}
         />
       </div>
     </div>
   );
 }
 
-
-function mapStateToProps(state) {
-  return { plant: state.plants.current };
-}
-
-const mapDispatchToProps = { newAlarm };
-
-export default connect(mapStateToProps,mapDispatchToProps)(AlarmFormContainer);
+export default connect(null, { editAlarm })(EditAlarmFormContainer);

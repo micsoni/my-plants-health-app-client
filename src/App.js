@@ -9,6 +9,7 @@ import Homepage from "./components/Homepage";
 import ProfilePage from "./components/ProfilePage"
 import AllAlarmsPage from "./components/AllAlarmsPage"
 import PlantDetailsPage from "./components/PlantDetailsPage"
+import AllNotesPage from "./components/AllNotesPage"
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" component={ProfilePage}/>
         <Route path="/plants/:plantId" component={PlantDetailsPage}/>
         <Route path="/alarms" component={AllAlarmsPage}/>
+        <Route path="/notes" component={AllNotesPage}/>
       </Switch>
     </Provider>
   );

@@ -11,10 +11,13 @@ function CreatePlantFormContainer(props) {
     description:""
   });
 
+  const [disabled, setDisabled] = useState(false)
+
   const onSubmit = event => {
     event.preventDefault();
     console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image, description:plant.description}).then(getUserPlants(props.userLoggedIn.id))
+    props.createPlant({name:plant.name, image:plant.image, description:plant.description})
+    .then(() => props.getUserPlants())
   };
 
   const onChange = event => {
@@ -28,6 +31,7 @@ function CreatePlantFormContainer(props) {
   const checkUploadResults = resultEvent => {
     if (resultEvent.event === "success") {
       setPlant({ ...plant, image: resultEvent.info.secure_url });
+      setDisabled(true)
     }
   };
   return (
@@ -40,6 +44,7 @@ function CreatePlantFormContainer(props) {
           values={plant}
           checkUploadResults={checkUploadResults}
           button={"Add new plant"}
+          disabled={disabled}
         />
       </div>
     </div>

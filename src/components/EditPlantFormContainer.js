@@ -11,6 +11,8 @@ function EditPlantFormContainer(props) {
     description: props.plant.description
   });
 
+  const [disabled, setDisabled] = useState(false)
+  
   const onSubmit = event => {
     event.preventDefault();
     console.log(plant)
@@ -28,6 +30,7 @@ function EditPlantFormContainer(props) {
   const checkUploadResults = resultEvent => {
     if (resultEvent.event === "success") {
       setPlant({ ...plant, image: resultEvent.info.secure_url });
+      setDisabled(true)
     }
   };
   return (
@@ -40,6 +43,7 @@ function EditPlantFormContainer(props) {
           values={plant}
           checkUploadResults={checkUploadResults}
           button={"Update Plant"}
+          disabled={disabled}
         />
       </div>
     </div>

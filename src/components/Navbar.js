@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {logout} from "../store/actions/user"
 import "../style/Navbar.css";
 
 function Navbar(props) {
+
+  const onLogout = () => {
+    props.logout();
+  };
+
   const userLoggedIn = () => {
     if (!props.userLoggedIn.jwt) {
       return (
@@ -43,6 +49,18 @@ function Navbar(props) {
     }
   };
 
+  const logout = () => {
+    if (!props.userLoggedIn.jwt) {
+      return null
+    } else {
+      return (
+        <Link to="/" className="nav-link">
+             <button onClick={onLogout} className="whiteButton">Logout</button>
+        </Link>
+      );
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-md">
       <button
@@ -64,6 +82,7 @@ function Navbar(props) {
             </Link>
           </li>
           {userLoggedIn()}
+      {logout()}
         </ul>
       </div>
     </nav>
@@ -74,4 +93,4 @@ function mapStateToProps(state) {
   return { userLoggedIn: state.user.loginInfo };
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, {logout})(Navbar);

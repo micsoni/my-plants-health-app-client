@@ -1,7 +1,8 @@
-import React, {useState} from "react";
-import {connect} from "react-redux"
-import {deletePlant} from "../store/actions/plants"
-import EditPlantFormContainer from "./EditPlantFormContainer"
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { deletePlant } from "../store/actions/plants";
+import { Link } from "react-router-dom";
+import EditPlantFormContainer from "./EditPlantFormContainer";
 
 function PlantDetails(props) {
   const [togglePlantForm, setTogglePlantForm] = useState(false);
@@ -9,23 +10,25 @@ function PlantDetails(props) {
   const togglePForm = () => {
     setTogglePlantForm(!togglePlantForm);
   };
-  
-  const onDelete = event => {
-    event.preventDefault();
+
+  const onDelete = () => {
     props.deletePlant(props.plant.id);
   };
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-12">
-          <img src={props.plant.image} className="img-fluid" alt=" " />
-          <h3 className="card-title">{props.plant.name}</h3>
-          <p className="card-text">{props.plant.description}</p>
+        <div className="text-center col-12">
+          <img src={props.plant.image} className="img-fluid m-3" alt=" " />
+          <h3 className="">{props.plant.name}</h3>
+          <p className="text-justify">{props.plant.description}</p>
           <button className="btn " onClick={togglePForm}>
             Edit plant
-          </button> <button className="btn " onClick={onDelete}>
-           Delete plant
           </button>
+          <Link to="/profile">
+            <button className="btn" onClick={onDelete}>
+              Delete plant
+            </button>
+          </Link>
           {togglePlantForm && <EditPlantFormContainer />}
         </div>
       </div>
@@ -33,5 +36,4 @@ function PlantDetails(props) {
   );
 }
 
-export default connect(null, {deletePlant})(PlantDetails);
-
+export default connect(null, { deletePlant })(PlantDetails);
