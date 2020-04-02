@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import AlarmForm from "./AlarmForm";
-import {newAlarm} from "../store/actions/plants"
-import {connect} from "react-redux"
+import { newAlarm } from "../store/actions/alarms";
+import { connect } from "react-redux";
 
 function AlarmFormContainer(props) {
   const [alarm, setAlarm] = useState({
     name: "",
-    hourInMinuts: ""
+    time: ""
   });
 
   const [dayOfTheWeek, setDayOfTheWeek] = useState({
@@ -21,10 +21,20 @@ function AlarmFormContainer(props) {
 
   const onSubmit = event => {
     event.preventDefault();
+
+    const time = alarm.time
+      .split(":")
+      .map((string, index) => {
+        const timeInNumbers =
+          index === 0 ? parseInt(string) * 60 : parseInt(string);
+        return timeInNumbers;
+      })
+      .reduce((acc, minutes) => acc + minutes, 0);
+
     const days = Object.values(dayOfTheWeek).map((value, index) =>
       value ? index : null
     );
-    props.newAlarm(alarm.name, alarm.hourInMinuts, days);
+    props.newAlarm(alarm.name, time, days);
   };
 
   const onChange = event => {
@@ -51,12 +61,12 @@ function AlarmFormContainer(props) {
           onChange={onChange}
           dayOnChange={dayOnChange}
           values={alarm}
+          button={"create new alarm"}
         />
       </div>
     </div>
   );
 }
-
 
 function mapStateToProps(state) {
   return { plant: state.plants.current };
@@ -64,4 +74,4 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = { newAlarm };
 
-export default connect(mapStateToProps,mapDispatchToProps)(AlarmFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AlarmFormContainer);

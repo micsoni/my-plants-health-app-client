@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function AlarmForm(props) {
+
   const daysOfTheWeekForm = () => {
     const daysOfTheWeek = [
       "sunday",
@@ -29,29 +30,7 @@ export default function AlarmForm(props) {
     return daysList;
   };
 
-  const timesListForm = () => {
-    const hourOfTheDay = [...Array(24)].map((_, i) => i);
-
-    const generateHourRange = hour => [
-      { text: `${hour}:00`, value: hour * 60 },
-      { text: `${hour}:15`, value: hour * 60 + 15 },
-      { text: `${hour}:30`, value: hour * 60 + 30 },
-      { text: `${hour}:45`, value: hour * 60 + 45 }
-    ];
-
-    const timeOfTheDay = hourOfTheDay.reduce(
-      (acc, hour) => acc.concat(generateHourRange(hour)),
-      []
-    );
-
-    const timesList = timeOfTheDay.map(time => {
-      return <option key={Math.random()} value={time.value}>{time.text}</option>;
-    });
-
-    return timesList;
-  };
-
-  return (
+    return (
     <div className="text-center">
       <form onSubmit={props.onSubmit}>
         <div className="form-group col-12">
@@ -67,20 +46,17 @@ export default function AlarmForm(props) {
         <p> Choose the days you want the receive a notification</p>
         {daysOfTheWeekForm()}
         <div className="form-group col-12">
-          <label >
-            Choose the time of the day
-          </label>
-          <select
-            name="hourInMinuts"
+          <label > Choose the time of the day</label>
+          <input
+          className="form-control"
+            type="time"
+            name="time"
             onChange={props.onChange}
-            className="form-control"
-          >
-            {timesListForm()}
-          </select>
+            value={props.values.time}
+          />
         </div>
-
         <button type="submit" className="btn">
-          create new alarm
+        {props.button}
         </button>
       </form>
     </div>
