@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import CreateAlarmFormContainer from "./CreateAlarmFormContainer";
-import usePushNotifications from "./Notification/useNotifications";
-import { getCurrentPlant } from "../store/actions/plants";
-import AlarmsCardsList from "./AlarmsCardsList";
-import PlantDetails from "./PlantDetails";
-import NoteCardsList from "./NoteCardsList";
-import CreateNoteFormContainer from "./CreateNoteFormContainer";
+import CreateAlarmFormContainer from "../forms/CreateAlarmFormContainer";
+import usePushNotifications from "../notifications/useNotifications";
+import { getCurrentPlant } from "../../store/actions/plants";
+import AlarmsCardsList from "../presentationals/AlarmsCardsList";
+import PlantDetails from "../presentationals/PlantDetails";
+import NoteCardsList from "../presentationals/NoteCardsList";
+import CreateNoteFormContainer from "../forms/CreateNoteFormContainer";
 
 function PlantDetailsPage(props) {
   const [toggleAlarmForm, setToggleAlarmForm] = useState(false);
   const [toggleNoteForm, setToggleNoteForm] = useState(false);
-
   const toggleAForm = () => {
     setToggleAlarmForm(!toggleAlarmForm);
   };
@@ -21,7 +20,10 @@ function PlantDetailsPage(props) {
     setToggleNoteForm(!toggleNoteForm);
   };
 
-  const { onClickAskUserPermissionAndSubscribe } = usePushNotifications();
+  const {
+    onClickAskUserPermissionAndSubscribe,
+    error
+  } = usePushNotifications();
 
   const { getCurrentPlant } = props;
   const plantId = props.match.params.plantId;
@@ -47,6 +49,15 @@ function PlantDetailsPage(props) {
     return <NoteCardsList plant={props.plant} />;
   };
 
+  const checkPermission = async () => {
+    const consent = await onClickAskUserPermissionAndSubscribe(
+      props.userLoggedIn
+    );
+    if (consent === "granted") {
+      toggleAForm();
+    }
+  };
+
   if (!props.userLoggedIn.jwt) {
     return <Redirect to="/login" />;
   }
@@ -56,6 +67,11 @@ function PlantDetailsPage(props) {
   }
   return (
     <div className="container-fluid">
+      {error && (
+        <div class="alert alert-danger" role="alert">
+          {error.message}
+        </div>
+      )}
       <div className="row">
         <div className="col-md-4 col-sm-12">
           <PlantDetails plant={props.plant} />
@@ -64,16 +80,12 @@ function PlantDetailsPage(props) {
           <div className="card shadow-sm">
             <div className="card-header">
               Alarms{" "}
-              <button
-                className="btn"
-                onClick={() => {
-                  onClickAskUserPermissionAndSubscribe(props.userLoggedIn);
-                  toggleAForm();
-                }}
-              >
+              <button className="btn" onClick={checkPermission}>
                 New Alarm{" "}
               </button>
-              {toggleAlarmForm && <CreateAlarmFormContainer />}
+              {toggleAlarmForm && (
+                <CreateAlarmFormContainer onAdd={toggleAForm} />
+              )}
             </div>
             {checkforAlarms()}
           </div>
@@ -87,7 +99,10 @@ function PlantDetailsPage(props) {
                 New note
               </button>
               {toggleNoteForm && (
-                <CreateNoteFormContainer plant={props.plant} />
+                <CreateNoteFormContainer
+                  onAdd={toggleNForm}
+                  plant={props.plant}
+                />
               )}
             </div>
             {checkforNotes()}

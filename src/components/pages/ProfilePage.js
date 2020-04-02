@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getUserPlants } from "../store/actions/plants";
+import { getUserPlants } from "../../store/actions/plants";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import UserPlantsCardsList from "./UserPlantsCardsList";
-import CreatePlantFormContainer from "./CreatePlantFormContainer";
-import "../style/ProfilePage.css";
+import UserPlantsCardsList from "../presentationals/UserPlantsCardsList";
+import CreatePlantFormContainer from "../forms/CreatePlantFormContainer";
+import "../../style/ProfilePage.css";
 
 function ProfilePage(props) {
   const [togglePlantForm, setToggleForm] = useState(false);
@@ -37,20 +37,22 @@ function ProfilePage(props) {
     return <p>Loading...</p>;
   }
   return (
-    <div className="container-fluid">
-      <p className="welcome">Welcome {props.userLoggedIn.name}</p>
-      <div className="bigcard card container-fluid">
-        <div className="card-header">
-          My Plants{" "}
-          <button className="btn" onClick={toggleForm}>
-            {" "}
-            New plant
-          </button>
-          {togglePlantForm && <CreatePlantFormContainer />}
+    <main className="bgContainer">
+      <div className="container-fluid">
+        <p className="welcome">Welcome {props.userLoggedIn.name}</p>
+        <div className="bigcard card container-fluid">
+          <div className="card-header">
+            My Plants{" "}
+            <button className="btn" onClick={toggleForm}>
+              {" "}
+              New plant
+            </button>
+            {togglePlantForm && <CreatePlantFormContainer onAdd={toggleForm} />}
+          </div>
+          {checkforPlants()}
         </div>
-        {checkforPlants()}
       </div>
-    </div>
+    </main>
   );
 }
 

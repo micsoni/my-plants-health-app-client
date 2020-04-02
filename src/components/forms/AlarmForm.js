@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function AlarmForm(props) {
-
   const daysOfTheWeekForm = () => {
     const daysOfTheWeek = [
       "sunday",
@@ -16,7 +15,7 @@ export default function AlarmForm(props) {
     const daysList = daysOfTheWeek.map(day => {
       return (
         <div className="form-check" key={day}>
-          <input 
+          <input
             className="form-check-input"
             type="checkbox"
             name={day}
@@ -30,13 +29,13 @@ export default function AlarmForm(props) {
     return daysList;
   };
 
-    return (
+  return (
     <div className="text-center">
       <form onSubmit={props.onSubmit}>
         <div className="form-group col-12">
           <label className="col-sm-2">Name</label>
           <input
-          className="form-control"
+            className="form-control"
             type="text"
             name="name"
             onChange={props.onChange}
@@ -46,9 +45,9 @@ export default function AlarmForm(props) {
         <p> Choose the days you want the receive a notification</p>
         {daysOfTheWeekForm()}
         <div className="form-group col-12">
-          <label > Choose the time of the day</label>
+          <label> Choose the time of the day</label>
           <input
-          className="form-control"
+            className="form-control"
             type="time"
             name="time"
             onChange={props.onChange}
@@ -56,7 +55,7 @@ export default function AlarmForm(props) {
           />
         </div>
         <button type="submit" className="btn">
-        {props.button}
+          {props.button}
         </button>
       </form>
     </div>

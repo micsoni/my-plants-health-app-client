@@ -14,12 +14,12 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
- //checks if Push notification and service workers are supported by your browser
+//checks if Push notification and service workers are supported by your browser
 function isPushNotificationSupported() {
   return "serviceWorker" in navigator && "PushManager" in window;
 }
 
- //asks user consent to receive push notifications and returns the response of the user, one of granted, default, denied
+//asks user consent to receive push notifications and returns the response of the user, one of granted, default, denied
 async function askUserPermission() {
   return await Notification.requestPermission();
 }
@@ -28,7 +28,7 @@ function registerServiceWorker() {
   return navigator.serviceWorker.register("/sw.js");
 }
 
- // using the registered service worker creates a push notification subscription and returns it
+// using the registered service worker creates a push notification subscription and returns it
 async function createNotificationSubscription() {
   const serviceWorker = await navigator.serviceWorker.ready;
   // subscribe and return the subscription

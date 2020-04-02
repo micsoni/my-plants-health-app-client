@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import NoteCard from "./NoteCard";
-import { getUserNotes } from "../store/actions/notes";
+import NoteCard from "../presentationals/NoteCard";
+import { getUserNotes } from "../../store/actions/notes";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import "../style/AllAlarmsPage.css";
+import "../../style/AllAlarmsPage.css";
 
 function AllNotesPage(props) {
   const { getUserNotes } = props;
@@ -30,10 +30,10 @@ function AllNotesPage(props) {
   const displayNotes = props.notes.map(note => {
     return (
       <div className="col-lg-4 col-md-6 col-12">
-          <div className="card" key={note.id}>
-            <NoteCard plant={note.plant} note={note} />
-          </div>
+        <div className="card" key={note.id}>
+          <NoteCard plant={note.plant} note={note} />
         </div>
+      </div>
     );
   });
 

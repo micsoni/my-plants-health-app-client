@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { deletePlant } from "../store/actions/plants";
+import { deletePlant } from "../../store/actions/plants";
 import { Link } from "react-router-dom";
-import EditPlantFormContainer from "./EditPlantFormContainer";
+import EditPlantFormContainer from "../forms/EditPlantFormContainer";
 
 function PlantDetails(props) {
   const [togglePlantForm, setTogglePlantForm] = useState(false);
@@ -29,7 +29,7 @@ function PlantDetails(props) {
               Delete plant
             </button>
           </Link>
-          {togglePlantForm && <EditPlantFormContainer />}
+          {togglePlantForm && <EditPlantFormContainer onEdit={togglePForm} />}
         </div>
       </div>
     </div>

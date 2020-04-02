@@ -1,27 +1,30 @@
 import React, { useState } from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import PlantForm from "./PlantForm";
-import {createPlant, getUserPlants} from "../store/actions/plants"
-import "../style/Forms.css";
+import { editPlant } from "../../store/actions/plants";
+import "../../style/Forms.css";
 
-function CreatePlantFormContainer(props) {
+function EditPlantFormContainer(props) {
   const [plant, setPlant] = useState({
-    name: "",
-    image: "",
-    description:""
+    name: props.plant.name,
+    image: props.plant.image,
+    description: props.plant.description
   });
 
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   const onSubmit = event => {
     event.preventDefault();
-    console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image, description:plant.description})
-    .then(() => props.getUserPlants())
+    props
+      .editPlant(props.plant.id, {
+        name: plant.name,
+        image: plant.image,
+        description: plant.description
+      })
+      .then(props.onEdit);
   };
 
   const onChange = event => {
-    console.log(event.target.name, event.target.value, plant)
     setPlant({
       ...plant,
       [event.target.name]: event.target.value
@@ -31,19 +34,19 @@ function CreatePlantFormContainer(props) {
   const checkUploadResults = resultEvent => {
     if (resultEvent.event === "success") {
       setPlant({ ...plant, image: resultEvent.info.secure_url });
-      setDisabled(true)
+      setDisabled(true);
     }
   };
   return (
     <div className="form ">
       <div className="card shadow-sm">
-        <p className="text-center">Add a new plant </p>
+        <p className="text-center">Edit information </p>
         <PlantForm
           onSubmit={onSubmit}
           onChange={onChange}
           values={plant}
           checkUploadResults={checkUploadResults}
-          button={"Add new plant"}
+          button={"Update Plant"}
           disabled={disabled}
         />
       </div>
@@ -51,10 +54,8 @@ function CreatePlantFormContainer(props) {
   );
 }
 
-
 function mapStateToProps(state) {
-  return { userLoggedIn: state.user.loginInfo };
+  return { userLoggedIn: state.user.loginInfo, plant: state.plants.current };
 }
 
-export default connect(mapStateToProps, { createPlant, getUserPlants })(CreatePlantFormContainer);
-
+export default connect(mapStateToProps, { editPlant })(EditPlantFormContainer);
