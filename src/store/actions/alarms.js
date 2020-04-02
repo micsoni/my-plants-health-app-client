@@ -1,6 +1,6 @@
 import request from "superagent";
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://boiling-hamlet-55290.herokuapp.com";
 
 // action to create alarm
 function addnewAlarm(newNote) {
@@ -14,18 +14,17 @@ export function newAlarm(name, time, dayOfTheWeek) {
   return async function(dispatch, getState) {
     const state = getState();
     const { user } = state;
-    const {plants} = state;
-     const alarm = {name, time, dayOfTheWeek, plantId: plants.current.id}
+    const { plants } = state;
+    const alarm = { name, time, dayOfTheWeek, plantId: plants.current.id };
     try {
       const response = await request
         .post(`${baseUrl}/alarm`)
         .set("Authorization", `Bearer ${user.loginInfo.jwt}`)
         .send(alarm);
 
-        const action = addnewAlarm(response.body);
+      const action = addnewAlarm(response.body);
 
-       dispatch(action);
-
+      dispatch(action);
     } catch (error) {
       console.log(error);
     }
@@ -48,14 +47,14 @@ export function deleteAlarm(plantId, alarmId) {
     try {
       await request
         .delete(`${baseUrl}/alarm/${alarmId}`)
-        .send({plantId})
+        .send({ plantId })
         .set("Authorization", `Bearer ${user.loginInfo.jwt}`);
 
       const action = destroyAlarm(alarmId);
 
       dispatch(action);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }
@@ -72,7 +71,7 @@ export function editAlarm(plantId, alarmId, update) {
   return async function(dispatch, getState) {
     const state = getState();
     const { user } = state;
-    update.plantId = plantId
+    update.plantId = plantId;
     try {
       const response = await request
         .put(`${baseUrl}/alarm/${alarmId}`)
@@ -82,9 +81,8 @@ export function editAlarm(plantId, alarmId, update) {
       const action = updateAlarm(response.body);
 
       dispatch(action);
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }

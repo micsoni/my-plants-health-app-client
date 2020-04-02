@@ -15,14 +15,16 @@ export default function AlarmForm(props) {
     const daysList = daysOfTheWeek.map(day => {
       return (
         <div className="form-check" key={day}>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            name={day}
-            onChange={props.dayOnChange}
-            checked={props.values.day}
-          />
-          <label className="form-check-label">{day}</label>
+          <label className="form-check-label">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              name={day}
+              onChange={props.dayOnChange}
+              checked={props.values.day && props.values.day[day]}
+            />
+            {day}
+          </label>
         </div>
       );
     });

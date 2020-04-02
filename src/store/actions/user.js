@@ -1,6 +1,6 @@
 import request from "superagent";
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://boiling-hamlet-55290.herokuapp.com";
 
 //signup action
 function createUser(userName) {

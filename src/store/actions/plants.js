@@ -1,6 +1,6 @@
 import request from "superagent";
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://boiling-hamlet-55290.herokuapp.com";
 
 //thunk action to create plant **it doesn't send a action to the store
 
@@ -9,7 +9,7 @@ export function createPlant(data) {
     const state = getState();
     const { user } = state;
     if (data.image === "") {
-      data = { name: data.name, description:data.description };
+      data = { name: data.name, description: data.description };
     }
     try {
       const response = await request
@@ -49,7 +49,6 @@ export function getUserPlants() {
   };
 }
 
-
 function currentPlant(PlantDetails) {
   return {
     type: "CURRENT_PLANT",
@@ -75,7 +74,6 @@ export function getCurrentPlant(plantId) {
   };
 }
 
-
 // action to update plant
 function updatePlant(newPlant) {
   return {
@@ -98,7 +96,7 @@ export function editPlant(id, update) {
 
       dispatch(action);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }
@@ -125,8 +123,7 @@ export function deletePlant(id) {
 
       dispatch(action);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 }
-

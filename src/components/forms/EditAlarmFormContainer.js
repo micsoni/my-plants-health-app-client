@@ -10,15 +10,22 @@ function EditAlarmFormContainer(props) {
     time: props.alarm.time
   });
 
-  const [dayOfTheWeek, setDayOfTheWeek] = useState({
-    sunday: false,
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false
-  });
+  const days = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday"
+  ];
+
+  const dayOfTheWeekB = days.reduce((acc, day, i) => {
+    acc[day] = props.alarm.dayOfTheWeek[i] > 0;
+    return acc;
+  }, {});
+
+  const [dayOfTheWeek, setDayOfTheWeek] = useState(dayOfTheWeekB);
 
   const onSubmit = event => {
     event.preventDefault();
@@ -69,7 +76,7 @@ function EditAlarmFormContainer(props) {
           onSubmit={onSubmit}
           onChange={onChange}
           dayOnChange={dayOnChange}
-          values={alarm}
+          values={{ ...alarm, day: dayOfTheWeek }}
           button={"Update Alarm"}
         />
       </div>

@@ -9,7 +9,7 @@ import {
   getUserSubscription
 } from "./push-notifications";
 
-const baseUrl = "http://localhost:4000";
+const baseUrl = "https://boiling-hamlet-55290.herokuapp.com";
 
 const pushNotificationSupported = isPushNotificationSupported();
 
