@@ -40,7 +40,7 @@ export function login(email, password) {
         .send({ email, password });
 
       const action = makeLogin(response.body);
-      dispatch(action)
+      dispatch(action);
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +51,9 @@ export function login(email, password) {
 export function logout() {
   return {
     type: "LOG_OUT",
-    payload: ""
+    payload: {
+      jwt: "",
+      name: ""
+    }
   };
 }

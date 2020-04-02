@@ -12,7 +12,6 @@ import CreateNoteFormContainer from "./CreateNoteFormContainer";
 function PlantDetailsPage(props) {
   const [toggleAlarmForm, setToggleAlarmForm] = useState(false);
   const [toggleNoteForm, setToggleNoteForm] = useState(false);
-  const [disabled, setDisabled] = useState(false);
   const toggleAForm = () => {
     setToggleAlarmForm(!toggleAlarmForm);
   };
@@ -81,11 +80,7 @@ function PlantDetailsPage(props) {
           <div className="card shadow-sm">
             <div className="card-header">
               Alarms{" "}
-              <button
-                className="btn"
-                disabled={disabled}
-                onClick={checkPermission}
-              >
+              <button className="btn" onClick={checkPermission}>
                 New Alarm{" "}
               </button>
               {toggleAlarmForm && (

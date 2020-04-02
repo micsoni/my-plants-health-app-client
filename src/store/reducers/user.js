@@ -1,8 +1,12 @@
-import { defineState } from "redux-localstore";
+import { getStateFromCookies } from "redux-cookies-middleware";
 
-const defaultState = { loginInfo: "" };
+const paths = {
+  "loginInfo.jwt": { name: "jwt" },
+  "loginInfo.name": { name: "name" }
+};
 
-const initialState = defineState(defaultState)("user");
+let initialState = { loginInfo: { jwt: "", name: "" } };
+initialState = getStateFromCookies(initialState, paths);
 
 export default function(state = initialState, action = {}) {
   switch (action.type) {
@@ -20,7 +24,6 @@ export default function(state = initialState, action = {}) {
     }
     case "LOG_OUT": {
       return {
-        plants: action.payload,
         loginInfo: action.payload
       };
     }
