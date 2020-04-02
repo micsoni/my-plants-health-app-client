@@ -34,7 +34,7 @@ function AlarmFormContainer(props) {
     const days = Object.values(dayOfTheWeek).map((value, index) =>
       value ? index : null
     );
-    props.newAlarm(alarm.name, time, days).then(props.onAdd)
+    props.newAlarm(alarm.name, time, days).then(props.onAdd);
   };
 
   const onChange = event => {
@@ -42,7 +42,6 @@ function AlarmFormContainer(props) {
       ...alarm,
       [event.target.name]: event.target.value
     });
-    console.log(alarm);
   };
 
   const dayOnChange = event => {
@@ -50,10 +49,9 @@ function AlarmFormContainer(props) {
       ...dayOfTheWeek,
       [event.target.name]: event.target.checked
     });
-    console.log();
   };
 
-   return (
+  return (
     <div className="form ">
       <div className="card shadow-sm">
         <AlarmForm

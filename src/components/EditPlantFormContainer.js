@@ -25,7 +25,6 @@ function EditPlantFormContainer(props) {
   };
 
   const onChange = event => {
-    console.log(event.target.name, event.target.value, plant);
     setPlant({
       ...plant,
       [event.target.name]: event.target.value

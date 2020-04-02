@@ -30,10 +30,10 @@ function AllNotesPage(props) {
   const displayNotes = props.notes.map(note => {
     return (
       <div className="col-lg-4 col-md-6 col-12">
-          <div className="card" key={note.id}>
-            <NoteCard plant={note.plant} note={note} />
-          </div>
+        <div className="card" key={note.id}>
+          <NoteCard plant={note.plant} note={note} />
         </div>
+      </div>
     );
   });
 

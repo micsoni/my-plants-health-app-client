@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import PlantForm from "./PlantForm";
-import {createPlant, getUserPlants} from "../store/actions/plants"
+import { createPlant, getUserPlants } from "../store/actions/plants";
 import "../style/Forms.css";
 
 function CreatePlantFormContainer(props) {
   const [plant, setPlant] = useState({
     name: "",
     image: "",
-    description:""
+    description: ""
   });
 
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
 
   const onSubmit = event => {
     event.preventDefault();
-    console.log(plant)
-    props.createPlant({name:plant.name, image:plant.image, description:plant.description})
-    .then(() => props.getUserPlants()).then(props.onAdd)
+    props
+      .createPlant({
+        name: plant.name,
+        image: plant.image,
+        description: plant.description
+      })
+      .then(() => props.getUserPlants())
+      .then(props.onAdd);
   };
 
   const onChange = event => {
-    console.log(event.target.name, event.target.value, plant)
     setPlant({
       ...plant,
       [event.target.name]: event.target.value
@@ -31,7 +35,7 @@ function CreatePlantFormContainer(props) {
   const checkUploadResults = resultEvent => {
     if (resultEvent.event === "success") {
       setPlant({ ...plant, image: resultEvent.info.secure_url });
-      setDisabled(true)
+      setDisabled(true);
     }
   };
   return (
@@ -51,10 +55,10 @@ function CreatePlantFormContainer(props) {
   );
 }
 
-
 function mapStateToProps(state) {
   return { userLoggedIn: state.user.loginInfo };
 }
 
-export default connect(mapStateToProps, { createPlant, getUserPlants })(CreatePlantFormContainer);
-
+export default connect(mapStateToProps, { createPlant, getUserPlants })(
+  CreatePlantFormContainer
+);

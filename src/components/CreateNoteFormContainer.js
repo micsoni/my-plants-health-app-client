@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import NoteForm from "./NoteForm";
-import {createNote} from "../store/actions/notes"
+import { createNote } from "../store/actions/notes";
 import "../style/Forms.css";
 
 function CreateNoteFormContainer(props) {
   const [note, setNote] = useState({
-    title:"",
-   text:""
-   });
+    title: "",
+    text: ""
+  });
 
-   const onSubmit = event => {
+  const onSubmit = event => {
     event.preventDefault();
-    props.createNote(props.plant.id,{title:note.title, text:note.text}).then(props.onAdd)
+    props
+      .createNote(props.plant.id, { title: note.title, text: note.text })
+      .then(props.onAdd);
   };
 
   const onChange = event => {
-    console.log(event.target.name, event.target.value)
     setNote({
       ...note,
       [event.target.name]: event.target.value
@@ -24,18 +25,17 @@ function CreateNoteFormContainer(props) {
   };
   return (
     <div className="form ">
-    <div className="card shadow-sm">
-      <p className="text-center">Add information </p>
-      <NoteForm
-        onSubmit={onSubmit}
-        onChange={onChange}
-        values={note}
-        button={"Add Note"}
-      />
+      <div className="card shadow-sm">
+        <p className="text-center">Add information </p>
+        <NoteForm
+          onSubmit={onSubmit}
+          onChange={onChange}
+          values={note}
+          button={"Add Note"}
+        />
+      </div>
     </div>
-  </div>
-  )
+  );
 }
 
 export default connect(null, { createNote })(CreateNoteFormContainer);
-

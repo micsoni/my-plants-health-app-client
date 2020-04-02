@@ -38,20 +38,20 @@ function ProfilePage(props) {
   }
   return (
     <main className="bgContainer">
-    <div className="container-fluid">
-      <p className="welcome">Welcome {props.userLoggedIn.name}</p>
-      <div className="bigcard card container-fluid">
-        <div className="card-header">
-          My Plants{" "}
-          <button className="btn" onClick={toggleForm}>
-            {" "}
-            New plant
-          </button>
-          {togglePlantForm && <CreatePlantFormContainer onAdd={toggleForm}/>}
+      <div className="container-fluid">
+        <p className="welcome">Welcome {props.userLoggedIn.name}</p>
+        <div className="bigcard card container-fluid">
+          <div className="card-header">
+            My Plants{" "}
+            <button className="btn" onClick={toggleForm}>
+              {" "}
+              New plant
+            </button>
+            {togglePlantForm && <CreatePlantFormContainer onAdd={toggleForm} />}
+          </div>
+          {checkforPlants()}
         </div>
-        {checkforPlants()}
       </div>
-    </div>
     </main>
   );
 }

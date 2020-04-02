@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function PlantForm(props) {
-  
   let myWidget = window.cloudinary.createUploadWidget(
     {
       cloudName: "plants-health",
@@ -25,7 +24,7 @@ export default function PlantForm(props) {
       <form onSubmit={props.onSubmit}>
         <div className="form-group col-12">
           <label className="col-sm-2 col-form-label">Name </label>{" "}
-          <input 
+          <input
             type="text"
             name="name"
             onChange={props.onChange}
@@ -34,7 +33,11 @@ export default function PlantForm(props) {
         </div>
         <div className="form-group col-12">
           <label className="col-sm-2 col-form-label">Image </label>{" "}
-          <button onClick={showWidget} className="addFile" disabled={props.disabled}>
+          <button
+            onClick={showWidget}
+            className="addFile"
+            disabled={props.disabled}
+          >
             ⇧ Choose a file ...
           </button>
           <div className="container-thumbnails"></div>
@@ -49,7 +52,7 @@ export default function PlantForm(props) {
           />
         </div>
         <button type="submit" className="btn">
-         {props.button}
+          {props.button}
         </button>
       </form>
     </div>

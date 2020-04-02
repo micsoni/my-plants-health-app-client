@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import {connect} from "react-redux"
+import { connect } from "react-redux";
 import NoteForm from "./NoteForm";
-import {editNote} from "../store/actions/notes"
+import { editNote } from "../store/actions/notes";
 import "../style/Forms.css";
 
 function EditNoteFormContainer(props) {
-  
   const [note, setNote] = useState({
- title:props.note.title,
-  text: props.note.text
+    title: props.note.title,
+    text: props.note.text
   });
 
   const onSubmit = event => {
     event.preventDefault();
-    props.editNote(props.plant.id, props.note.id, {title:note.title, text:note.text}).then(props.onEdit)
+    props
+      .editNote(props.plant.id, props.note.id, {
+        title: note.title,
+        text: note.text
+      })
+      .then(props.onEdit);
   };
 
   const onChange = event => {
-    console.log(event.target.name, event.target.value)
     setNote({
       ...note,
       [event.target.name]: event.target.value
@@ -40,4 +43,3 @@ function EditNoteFormContainer(props) {
 }
 
 export default connect(null, { editNote })(EditNoteFormContainer);
-
