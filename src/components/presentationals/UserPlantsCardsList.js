@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { deletePlant } from "../store/actions/plants";
+import { deletePlant } from "../../store/actions/plants";
 import { connect } from "react-redux";
 
 function UserPlantsCardsList(props) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteAlarm } from "../store/actions/alarms";
+import { deleteAlarm } from "../../store/actions/alarms";
 import { Link } from "react-router-dom";
 
 function AlarmCard(props) {

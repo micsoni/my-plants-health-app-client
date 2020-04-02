@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { login } from "../store/actions/user.js";
-import AuthForm from "./AuthForm";
-import "../style/Forms.css";
+import { signup } from "../../store/actions/user.js";
+import AuthForm from "../forms/AuthForm";
+import "../../style/Forms.css";
 
-function LoginFormPage(props) {
+function SignUpFormPage(props) {
   const [user, setUser] = useState({
     email: "",
-    password: ""
+    password: "",
+    username: ""
   });
 
   const onSubmit = event => {
     event.preventDefault();
-    props.login(user.email, user.password);
+
+    props.signup(user.email, user.password, user.username);
   };
 
   const onChange = event => {
@@ -27,15 +29,15 @@ function LoginFormPage(props) {
     return (
       <div className="form ">
         <div className="card shadow-sm">
-          <p className="text-center">Log in to access your personal page</p>
+          <p className="text-center">Fill in your data to join us</p>
           <AuthForm
             onSubmit={onSubmit}
             onChange={onChange}
             values={user}
-            type={"Login"}
+            type={"Sign Up"}
           />
           <p className="text-center">
-            Not a member yet? <Link to="/signup">Join us</Link>
+            Already a member? <Link to="/login">Login</Link>
           </p>
         </div>
       </div>
@@ -48,4 +50,4 @@ function mapStateToProps(state) {
   return { userLoggedIn: state.user.loginInfo };
 }
 
-export default connect(mapStateToProps, { login })(LoginFormPage);
+export default connect(mapStateToProps, { signup })(SignUpFormPage);

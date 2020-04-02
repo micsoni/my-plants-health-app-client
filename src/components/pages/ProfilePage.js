@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getUserPlants } from "../store/actions/plants";
+import { getUserPlants } from "../../store/actions/plants";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import UserPlantsCardsList from "./UserPlantsCardsList";
-import CreatePlantFormContainer from "./CreatePlantFormContainer";
-import "../style/ProfilePage.css";
+import UserPlantsCardsList from "../presentationals/UserPlantsCardsList";
+import CreatePlantFormContainer from "../forms/CreatePlantFormContainer";
+import "../../style/ProfilePage.css";
 
 function ProfilePage(props) {
   const [togglePlantForm, setToggleForm] = useState(false);

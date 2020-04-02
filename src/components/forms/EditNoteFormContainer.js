@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import NoteForm from "./NoteForm";
-import { createNote } from "../store/actions/notes";
-import "../style/Forms.css";
+import { editNote } from "../../store/actions/notes";
+import "../../style/Forms.css";
 
-function CreateNoteFormContainer(props) {
+function EditNoteFormContainer(props) {
   const [note, setNote] = useState({
-    title: "",
-    text: ""
+    title: props.note.title,
+    text: props.note.text
   });
 
   const onSubmit = event => {
     event.preventDefault();
     props
-      .createNote(props.plant.id, { title: note.title, text: note.text })
-      .then(props.onAdd);
+      .editNote(props.plant.id, props.note.id, {
+        title: note.title,
+        text: note.text
+      })
+      .then(props.onEdit);
   };
 
   const onChange = event => {
@@ -23,19 +26,20 @@ function CreateNoteFormContainer(props) {
       [event.target.name]: event.target.value
     });
   };
+
   return (
     <div className="form ">
       <div className="card shadow-sm">
-        <p className="text-center">Add information </p>
+        <p className="text-center">Edit information </p>
         <NoteForm
           onSubmit={onSubmit}
           onChange={onChange}
           values={note}
-          button={"Add Note"}
+          button={"Update Note"}
         />
       </div>
     </div>
   );
 }
 
-export default connect(null, { createNote })(CreateNoteFormContainer);
+export default connect(null, { editNote })(EditNoteFormContainer);

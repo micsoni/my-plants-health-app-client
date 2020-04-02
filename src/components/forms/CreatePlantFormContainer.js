@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import PlantForm from "./PlantForm";
-import { createPlant, getUserPlants } from "../store/actions/plants";
-import "../style/Forms.css";
+import { createPlant, getUserPlants } from "../../store/actions/plants";
+import "../../style/Forms.css";
 
 function CreatePlantFormContainer(props) {
   const [plant, setPlant] = useState({

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import CreateAlarmFormContainer from "./CreateAlarmFormContainer";
-import usePushNotifications from "./Notification/useNotifications";
-import { getCurrentPlant } from "../store/actions/plants";
-import AlarmsCardsList from "./AlarmsCardsList";
-import PlantDetails from "./PlantDetails";
-import NoteCardsList from "./NoteCardsList";
-import CreateNoteFormContainer from "./CreateNoteFormContainer";
+import CreateAlarmFormContainer from "../forms/CreateAlarmFormContainer";
+import usePushNotifications from "../notifications/useNotifications";
+import { getCurrentPlant } from "../../store/actions/plants";
+import AlarmsCardsList from "../presentationals/AlarmsCardsList";
+import PlantDetails from "../presentationals/PlantDetails";
+import NoteCardsList from "../presentationals/NoteCardsList";
+import CreateNoteFormContainer from "../forms/CreateNoteFormContainer";
 
 function PlantDetailsPage(props) {
   const [toggleAlarmForm, setToggleAlarmForm] = useState(false);

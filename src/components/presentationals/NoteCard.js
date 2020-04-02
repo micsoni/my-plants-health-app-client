@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteNote } from "../store/actions/notes";
+import { deleteNote } from "../../store/actions/notes";
 import { Link } from "react-router-dom";
 
 function NoteCard(props) {

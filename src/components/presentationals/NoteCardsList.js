@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import NoteCard from "./NoteCard";
-import EditNoteFormContainer from "./EditNoteFormContainer";
+import EditNoteFormContainer from "../forms/EditNoteFormContainer";
 
 function NoteCardsList(props) {
   const [notesInEdit, setNotesInEdit] = useState([]);

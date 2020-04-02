@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import AlarmCard from "./AlarmCard";
-import EditAlarmFormContainer from "./EditAlarmFormContainer";
+import EditAlarmFormContainer from "../forms/EditAlarmFormContainer";
 
 function AlarmsCardsList(props) {
   const [alarmsInEdit, setAlarmsInEdit] = useState([]);

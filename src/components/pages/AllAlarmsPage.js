@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import AlarmCard from "./AlarmCard";
-import { getUserAlarms } from "../store/actions/alarms";
+import AlarmCard from "../presentationals/AlarmCard";
+import { getUserAlarms } from "../../store/actions/alarms";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import "../style/AllAlarmsPage.css";
+import "../../style/AllAlarmsPage.css";
 
 function AllAlarmsPage(props) {
   const { getUserAlarms } = props;
