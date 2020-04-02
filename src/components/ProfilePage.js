@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserPlants } from "../store/actions/plants";
-import { logout } from "../store/actions/user";
 import { connect } from "react-redux";
-import { Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import UserPlantsCardsList from "./UserPlantsCardsList";
 import CreatePlantFormContainer from "./CreatePlantFormContainer";
 import "../style/ProfilePage.css";
@@ -14,19 +13,14 @@ function ProfilePage(props) {
     setToggleForm(!togglePlantForm);
   };
 
-  const {getUserPlants} = props
-  const currentUser = props.userLoggedIn.jwt
+  const { getUserPlants } = props;
+  const currentUser = props.userLoggedIn.jwt;
 
   useEffect(() => {
     if (currentUser) {
-      getUserPlants(currentUser)
+      getUserPlants();
     }
   }, [getUserPlants, currentUser]);
-
-  const onLogout = () => {
-    props.logout();
-    props.history.push("/");
-  };
 
   const checkforPlants = () => {
     if (props.plants.length === 0) {
@@ -45,16 +39,15 @@ function ProfilePage(props) {
   return (
     <div className="container-fluid">
       <p className="welcome">Welcome {props.userLoggedIn.name}</p>
-      <button className="btn" onClick={onLogout}>
-        Logout
-      </button>
-      <button className="btn" onClick={toggleForm}>
-        {" "}
-        New plant
-      </button>
-      {togglePlantForm && <CreatePlantFormContainer />}
       <div className="bigcard card container-fluid">
-        <div className="card-header">My Plants</div>
+        <div className="card-header">
+          My Plants{" "}
+          <button className="btn" onClick={toggleForm}>
+            {" "}
+            New plant
+          </button>
+          {togglePlantForm && <CreatePlantFormContainer />}
+        </div>
         {checkforPlants()}
       </div>
     </div>
@@ -67,6 +60,6 @@ function mapStateToProps(state) {
     plants: state.plants.all.rows
   };
 }
-const mapDispatchToProps = { getUserPlants, logout };
+const mapDispatchToProps = { getUserPlants };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

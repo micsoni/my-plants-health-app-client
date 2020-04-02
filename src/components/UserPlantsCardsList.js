@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {deletePlant} from "../store/actions/plants"
+import {connect} from "react-redux"
 
-export default function UserPlantsCardsList(props) {
+function UserPlantsCardsList(props) {
+
+  const onDelete = (id) => {
+    props.deletePlant(id);
+  };
 
   const displayPlants = props.plants.map(plant => {
     const alarms = () => {
@@ -29,6 +35,10 @@ export default function UserPlantsCardsList(props) {
           <Link to={`/plants/${plant.id}`} className="btn">
             See Details
           </Link>
+          <button className="btn" onClick={() => {onDelete(plant.id)}}>
+            {" "}
+            Delete plant
+          </button>
         </div>
       </div>
     );
@@ -37,3 +47,11 @@ export default function UserPlantsCardsList(props) {
 
   return <div className="row">{displayPlants}</div>;
 }
+
+const mapDispatchToProps = {
+  deletePlant
+};
+
+export default connect(null, mapDispatchToProps)(UserPlantsCardsList);
+
+
