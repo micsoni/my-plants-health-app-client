@@ -34,7 +34,7 @@ function AlarmFormContainer(props) {
     const days = Object.values(dayOfTheWeek).map((value, index) =>
       value ? index : null
     );
-    props.newAlarm(alarm.name, time, days);
+    props.newAlarm(alarm.name, time, days).then(props.onAdd)
   };
 
   const onChange = event => {
@@ -53,7 +53,7 @@ function AlarmFormContainer(props) {
     console.log();
   };
 
-  return (
+   return (
     <div className="form ">
       <div className="card shadow-sm">
         <AlarmForm

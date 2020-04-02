@@ -12,7 +12,7 @@ import CreateNoteFormContainer from "./CreateNoteFormContainer";
 function PlantDetailsPage(props) {
   const [toggleAlarmForm, setToggleAlarmForm] = useState(false);
   const [toggleNoteForm, setToggleNoteForm] = useState(false);
-
+  const [disabled, setDisabled] = useState(false);
   const toggleAForm = () => {
     setToggleAlarmForm(!toggleAlarmForm);
   };
@@ -21,7 +21,10 @@ function PlantDetailsPage(props) {
     setToggleNoteForm(!toggleNoteForm);
   };
 
-  const { onClickAskUserPermissionAndSubscribe } = usePushNotifications();
+  const {
+    onClickAskUserPermissionAndSubscribe,
+    error
+  } = usePushNotifications();
 
   const { getCurrentPlant } = props;
   const plantId = props.match.params.plantId;
@@ -47,6 +50,15 @@ function PlantDetailsPage(props) {
     return <NoteCardsList plant={props.plant} />;
   };
 
+  const checkPermission = async () => {
+    const consent = await onClickAskUserPermissionAndSubscribe(
+      props.userLoggedIn
+    );
+    if (consent === "granted") {
+      toggleAForm();
+    }
+  };
+
   if (!props.userLoggedIn.jwt) {
     return <Redirect to="/login" />;
   }
@@ -56,6 +68,11 @@ function PlantDetailsPage(props) {
   }
   return (
     <div className="container-fluid">
+      {error && (
+        <div class="alert alert-danger" role="alert">
+          {error.message}
+        </div>
+      )}
       <div className="row">
         <div className="col-md-4 col-sm-12">
           <PlantDetails plant={props.plant} />
@@ -66,14 +83,14 @@ function PlantDetailsPage(props) {
               Alarms{" "}
               <button
                 className="btn"
-                onClick={() => {
-                  onClickAskUserPermissionAndSubscribe(props.userLoggedIn);
-                  toggleAForm();
-                }}
+                disabled={disabled}
+                onClick={checkPermission}
               >
                 New Alarm{" "}
               </button>
-              {toggleAlarmForm && <CreateAlarmFormContainer />}
+              {toggleAlarmForm && (
+                <CreateAlarmFormContainer onAdd={toggleAForm} />
+              )}
             </div>
             {checkforAlarms()}
           </div>
@@ -87,7 +104,10 @@ function PlantDetailsPage(props) {
                 New note
               </button>
               {toggleNoteForm && (
-                <CreateNoteFormContainer plant={props.plant} />
+                <CreateNoteFormContainer
+                  onAdd={toggleNForm}
+                  plant={props.plant}
+                />
               )}
             </div>
             {checkforNotes()}

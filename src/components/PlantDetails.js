@@ -29,7 +29,7 @@ function PlantDetails(props) {
               Delete plant
             </button>
           </Link>
-          {togglePlantForm && <EditPlantFormContainer />}
+          {togglePlantForm && <EditPlantFormContainer onEdit={togglePForm} />}
         </div>
       </div>
     </div>

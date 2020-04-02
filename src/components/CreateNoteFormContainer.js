@@ -12,7 +12,7 @@ function CreateNoteFormContainer(props) {
 
    const onSubmit = event => {
     event.preventDefault();
-    props.createNote(props.plant.id,{title:note.title, text:note.text})
+    props.createNote(props.plant.id,{title:note.title, text:note.text}).then(props.onAdd)
   };
 
   const onChange = event => {

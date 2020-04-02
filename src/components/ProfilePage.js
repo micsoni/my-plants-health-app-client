@@ -37,6 +37,7 @@ function ProfilePage(props) {
     return <p>Loading...</p>;
   }
   return (
+    <main className="bgContainer">
     <div className="container-fluid">
       <p className="welcome">Welcome {props.userLoggedIn.name}</p>
       <div className="bigcard card container-fluid">
@@ -46,11 +47,12 @@ function ProfilePage(props) {
             {" "}
             New plant
           </button>
-          {togglePlantForm && <CreatePlantFormContainer />}
+          {togglePlantForm && <CreatePlantFormContainer onAdd={toggleForm}/>}
         </div>
         {checkforPlants()}
       </div>
     </div>
+    </main>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteAlarm } from "../store/actions/alarms";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function AlarmCard(props) {
   const onDelete = event => {
@@ -41,9 +41,8 @@ function AlarmCard(props) {
     const hours = number / 60;
     const rhours = Math.floor(hours);
     const minutes = (hours - rhours) * 60;
-    const rminutes = Math.round(minutes)
-    const checkMinutes = rminutes !== 0 ? rminutes : "00"
-    return rhours + ":" + checkMinutes;
+    const rminutes = Math.round(minutes);
+    return rhours + ":" + String(rminutes).padStart(2, "0");
   };
 
   const containerType = () => {
@@ -68,15 +67,18 @@ function AlarmCard(props) {
         <div className="col-4">
           <img src={alarm.plant.image} className="thumb" alt="" />
         </div>
-        <div className="col-8"><h5 className="card-title">{alarm.name} </h5>
-        <p className="text-center">
-          {changeDayFormat()} at {changeHourFormat()}
-        </p>
-        <Link to={`/plants/${alarm.plant.id}`} className="nav-link dropdown-item">
-        <button className="addFile"> See {alarm.plant.name}</button>
-            </Link>
-       </div>
-        
+        <div className="col-8">
+          <h5 className="card-title">{alarm.name} </h5>
+          <p className="text-center">
+            {changeDayFormat()} at {changeHourFormat()}
+          </p>
+          <Link
+            to={`/plants/${alarm.plant.id}`}
+            className="nav-link dropdown-item"
+          >
+            <button className="addFile"> See {alarm.plant.name}</button>
+          </Link>
+        </div>
       </div>
     );
   };

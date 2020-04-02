@@ -20,7 +20,7 @@ function NoteCardsList(props) {
     return (
       <div className="card" key={note.id}>
         <NoteCard type={"details page"} plant={props.plant} note={note} toggleNoteForm={() => toggleNoteForm(note)} />
-        <div>{showForm && <EditNoteFormContainer plant={props.plant} note={note} />}</div>
+        <div>{showForm && <EditNoteFormContainer onEdit={() => toggleNoteForm(note)}  plant={props.plant} note={note} />}</div>
       </div>
     );
   });

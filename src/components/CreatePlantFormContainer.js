@@ -17,7 +17,7 @@ function CreatePlantFormContainer(props) {
     event.preventDefault();
     console.log(plant)
     props.createPlant({name:plant.name, image:plant.image, description:plant.description})
-    .then(() => props.getUserPlants())
+    .then(() => props.getUserPlants()).then(props.onAdd)
   };
 
   const onChange = event => {

@@ -20,7 +20,7 @@ function AlarmsCardsList(props) {
     return (
       <div className="card" key={alarm.id}>
         <AlarmCard type={"details page"} plant={props.plant} alarm={alarm} toggleAlarmForm={() => toggleAlarmForm(alarm)} />
-        <div>{showForm && <EditAlarmFormContainer plant={props.plant} alarm={alarm} />}</div>
+        <div>{showForm && <EditAlarmFormContainer onEdit={() => toggleAlarmForm(alarm)} plant={props.plant} alarm={alarm} />}</div>
       </div>
     );
   });

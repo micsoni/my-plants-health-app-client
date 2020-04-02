@@ -13,7 +13,7 @@ function EditNoteFormContainer(props) {
 
   const onSubmit = event => {
     event.preventDefault();
-    props.editNote(props.plant.id, props.note.id, {title:note.title, text:note.text})
+    props.editNote(props.plant.id, props.note.id, {title:note.title, text:note.text}).then(props.onEdit)
   };
 
   const onChange = event => {

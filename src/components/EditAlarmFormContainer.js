@@ -42,7 +42,7 @@ function EditAlarmFormContainer(props) {
       name: alarm.name,
       time: time,
       dayOfTheWeek: days
-    });
+    }).then(props.onEdit)
   };
 
   const onChange = event => {
