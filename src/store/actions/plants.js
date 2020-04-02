@@ -9,9 +9,8 @@ export function createPlant(data) {
     const state = getState();
     const { user } = state;
     if (data.image === "") {
-      data = { name: data.name };
+      data = { name: data.name, description:data.description };
     }
-    console.log(data);
     try {
       const response = await request
         .post(`${baseUrl}/plant`)
@@ -76,25 +75,6 @@ export function getCurrentPlant(plantId) {
   };
 }
 
-//thunk action to create alarm **it doesn't send a action to the store
-
-export function newAlarm(name, time, dayOfTheWeek) {
-  return async function(dispatch, getState) {
-    const state = getState();
-    const { user } = state;
-    const {plants} = state;
-     const alarm = {name, time, dayOfTheWeek, plantId: plants.current.id}
-    try {
-      const response = await request
-        .post(`${baseUrl}/alarm`)
-        .set("Authorization", `Bearer ${user.loginInfo.jwt}`)
-        .send(alarm);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
 
 // action to update plant
 function updatePlant(newPlant) {
@@ -149,3 +129,4 @@ export function deletePlant(id) {
     }
   };
 }
+
