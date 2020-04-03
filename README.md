@@ -14,7 +14,7 @@ Happy Plants aims to help people that like plants and want to have them but are 
  - Redux
  - Express
  - Sequelize
- - Claudinary-react
+ - Cloudinary-react
  - Web-push
  
 ### User stories
